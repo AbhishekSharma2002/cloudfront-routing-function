@@ -1,0 +1,35 @@
+function handler(event) {
+  var req = event.request;
+  var uri = req.uri;
+
+  // --- Handle /app1 ---
+  if (uri === "/app1") {
+    req.uri = "/index.html";
+    return req;
+  }
+  if (uri.startsWith("/app1/")) {
+    var newUri1 = uri.slice("/app1".length); // remove /app1 prefix
+    if (newUri1.endsWith("/")) {
+      newUri1 += "index.html";
+    }
+    req.uri = newUri1;
+    return req;
+  }
+
+  // --- Handle /app2 ---
+  if (uri === "/app2") {
+    req.uri = "/index.html";
+    return req;
+  }
+  if (uri.startsWith("/app2/")) {
+    var newUri2 = uri.slice("/app2".length); // remove /app2 prefix
+    if (newUri2.endsWith("/")) {
+      newUri2 += "index.html";
+    }
+    req.uri = newUri2;
+    return req;
+  }
+
+  // Baaki untouched
+  return req;
+}
